@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
                     .commit();
         }
         // Đinh Văn Vũ đã đến đây , ĐKM mấy đứa đến sau
+		// Dinh Van Vu da o day , DKm May dua den sau !!
     }
 
 

@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-        // Đinh Văn Vũ đã đến đây , ĐKM mấy đứa đến sau
+        // test up_v.a  
 		// Dinh Van Vu da o day , DKm May dua den sau !!
     }
 

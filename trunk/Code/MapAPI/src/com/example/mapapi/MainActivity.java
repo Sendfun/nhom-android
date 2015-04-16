@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        // Đinh Văn Vũ đã đến đây , ĐKM mấy đứa đến sau
     }
 
 

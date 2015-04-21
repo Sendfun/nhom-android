@@ -40,146 +40,59 @@ import android.widget.AdapterView.*;
 
 public class ListViewPlaceActivity extends Activity {
 
+	// flag for Internet connection status
+	Boolean isInternetPresent = false;
+
+	// Connection detector class
+	ConnectionDetector cd;
+
+	// Alert Dialog Manager
+	AlertDialogManager alert = new AlertDialogManager();
+
+	// Google Places
+	GooglePlaces googlePlaces;
+
+	GoogleMap mGoogleMap;
+
+	// Places List
+	PlacesList nearPlaces;
+
+	// GPS Location
+	GPSTracker gps;
+
+	// Progress dialog
+	ProgressDialog pDialog;
+
+	// Places Listview
+	ListView lv;
+
+	// ListItems data
+	ArrayList<HashMap<String, String>> placesListItems = new ArrayList<HashMap<String, String>>();
+
+	// KEY Strings
+	public static String KEY_REFERENCE = "reference";
+	public static String KEY_NAME = "name";
+	public static String KEY_VICINITY = "vicinity";
+
+	private static final String API_KEY_Place = "AIzaSyB42A0MqBlXb3dEPSk9saKUhDq7OQ6GAMQ";
+	private static final String PLACES_DETAIL = "https://maps.googleapis.com/maps/api/place/details/json?";
+
+	String keyWord;
+	String reference;
+	int Mode = 0;
+	Location location;
+	Double tdLat, tdLng;
+	double latk, lngk;
+	Boolean choose3;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_view_place);
 
-		
-
 	}
 
-	/**
-	 * Background Async Task to Load Google places
-	 * */
-	class LoadPlaces extends AsyncTask<String, String, String> {
-
-		/**
-		 * Before starting background thread Show Progress Dialog
-		 * */
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			pDialog = new ProgressDialog(ListViewPlaceActivity.this);
-			pDialog.setMessage(Html
-					.fromHtml("<b>Search</b><br/>Loading Places..."));
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false);
-			pDialog.show();
-		}
-
-		/**
-		 * getting Places JSON
-		 * */
-		protected String doInBackground(String... args) {
-			// creating Places class object
-			googlePlaces = new GooglePlaces();
-			String types = "";
-
-			try {
-				if (keyWord == "") {
-					types = "atm";
-				} else {
-					types = keyWord;
-				}
-				double radius = 3000;// 3km
-				if (choose3 == true) {
-					nearPlaces = googlePlaces.search(latk, lngk, radius, types);
-				} else {
-					nearPlaces = googlePlaces.search(gps.getLatitude(),
-							gps.getLongitude(), radius, types);
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-		/**
-		 * After completing background task Dismiss the progress dialog and show
-		 * the data in UI Always use runOnUiThread(new Runnable()) to update UI
-		 * from background thread, otherwise you will get error
-		 * **/
-		protected void onPostExecute(String file_url) {
-			// dismiss the dialog after getting all products
-			pDialog.dismiss();
-			// updating UI from Background Thread
-			runOnUiThread(new Runnable() {
-				public void run() {
-					/**
-					 * Updating parsed Places into LISTVIEW
-					 * */
-					// Get json response status
-					String status = nearPlaces.status;
-
-					// Check for all possible status
-					if (status.equals("OK")) {
-						// Successfully got places details
-						if (nearPlaces.results != null) {
-							// loop through each place
-							for (Place p : nearPlaces.results) {
-								HashMap<String, String> map = new HashMap<String, String>();
-
-								// Place reference won't display in listview -
-								// it will be hidden
-								// Place reference is used to get
-								// "place full details"
-
-								map.put(KEY_REFERENCE, p.reference);
-
-								// Place name
-								map.put(KEY_NAME, p.name);
-
-								// adding HashMap to ArrayList
-								placesListItems.add(map);
-							}
-							// list adapter
-							ListAdapter adapter = new SimpleAdapter(
-									ListViewPlaceActivity.this,
-									placesListItems, R.layout.list_item,
-									new String[] { KEY_REFERENCE, KEY_NAME },
-									new int[] { R.id.reference, R.id.name });
-
-							// Adding data into listview
-							lv.setAdapter(adapter);
-						}
-					} else if (status.equals("ZERO_RESULTS")) {
-						// Zero results found
-						alert.showAlertDialog(
-								ListViewPlaceActivity.this,
-								"Near Places",
-								"Sorry no places found. Try to change the types of places",
-								false);
-					} else if (status.equals("UNKNOWN_ERROR")) {
-						alert.showAlertDialog(ListViewPlaceActivity.this,
-								"Places Error", "Sorry unknown error occured.",
-								false);
-					} else if (status.equals("OVER_QUERY_LIMIT")) {
-						alert.showAlertDialog(
-								ListViewPlaceActivity.this,
-								"Places Error",
-								"Sorry query limit to google places is reached",
-								false);
-					} else if (status.equals("REQUEST_DENIED")) {
-						alert.showAlertDialog(ListViewPlaceActivity.this,
-								"Places Error",
-								"Sorry error occured. Request is denied", false);
-					} else if (status.equals("INVALID_REQUEST")) {
-						alert.showAlertDialog(ListViewPlaceActivity.this,
-								"Places Error",
-								"Sorry error occured. Invalid Request", false);
-					} else {
-						alert.showAlertDialog(ListViewPlaceActivity.this,
-								"Places Error", "Sorry error occured.", false);
-					}
-				}
-			});
-
-		}
-
-	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.list_view_place, menu);

@@ -196,7 +196,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 		// setLocale("en");
 
 		mTitle = mDrawerTitle = getTitle();
-
+// Dinh Van Vu
 		// load slide menu items
 		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 

@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.hello.MainActivity" >
+
+    <item
+        android:id="@+id/searchWay"
+        android:icon="@android:drawable/ic_menu_directions"
+        android:showAsAction="always"
+        android:title="@string/searchWay">
+    </item>
+    <item
+        android:id="@+id/refresh"
+        android:icon="@android:drawable/ic_menu_search"
+        android:showAsAction="always"
+        android:title="Search the Place">
+    </item>
+    <item
+        android:id="@+id/mapTypes"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:showAsAction="always"
+        android:title="Select map types">
+        <menu>
+            <item
+                android:id="@+id/normal_map"
+                android:title="Normal map"/>
+            <item
+                android:id="@+id/satellite_map"
+                android:title="Satellite map"/>
+            <item
+                android:id="@+id/terrain_map"
+                android:title="Terrain map"/>
+            <item
+                android:id="@+id/hybrid_map"
+                android:title="Hybrid map"/>
+        </menu>
+    </item>
+
+</menu>

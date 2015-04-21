@@ -194,40 +194,7 @@ public class DetailSinglePlaceActivity extends Activity {
 		@Override
 		protected void onPostExecute(HashMap<String, String> hPlaceDetails) {
 
-			String name = hPlaceDetails.get("name");
-			String icon = hPlaceDetails.get("icon");
-			String vicinity = hPlaceDetails.get("vicinity");
-			String lat = hPlaceDetails.get("lat");
-			String lng = hPlaceDetails.get("lng");
-			String formatted_address = hPlaceDetails.get("formatted_address");
-			String formatted_phone = hPlaceDetails.get("formatted_phone");
-			String website = hPlaceDetails.get("website");
-
-			String mimeType = "text/html";
-			String encoding = "utf-8";
-
-			String data = "<html>" + "<body><img style='float:left' src="
-					+ icon + " /><h1><center>" + name + "</center></h1>"
-					+ "<br style='clear:both' />" + "<hr />" + "<p>Vicinity : "
-					+ vicinity + "</p>" + "<p>Location : " + lat + "," + lng
-					+ "</p>" + "<p>Address : " + formatted_address + "</p>"
-					+ "<p>Phone : " + formatted_phone + "</p>"
-					+ "<p>Website : " + website + "</p>" + "</body></html>";
-
-			// Setting the data in WebView
-
-			TextView tvname = (TextView) findViewById(R.id.name);
-			TextView tvaddress = (TextView) findViewById(R.id.address);
-			TextView tvphone = (TextView) findViewById(R.id.phone);
-			TextView tvlocation = (TextView) findViewById(R.id.location);
-			TextView tvwebs = (TextView) findViewById(R.id.website);
-			tvname.setText(name);
-
-			tvaddress.setText(formatted_address);
-			tvwebs.setText(website);
-			tvphone.setText(Html.fromHtml("<b>Phone:</b> " + formatted_phone));
-			tvlocation.setText(Html.fromHtml("<b>Latitude:</b> " + lat
-					+ ", <b>Longitude:</b> " + lng));
+			
 		}
 	}
 

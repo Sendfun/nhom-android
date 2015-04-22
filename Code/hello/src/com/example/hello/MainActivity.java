@@ -305,7 +305,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
 		} else { // Google Play Services are available
 
-			// Loading map
+			// Loading map By Huynh Quang Phat
 			initilizeMap();
 
 			// Getting LocationManager object from System Service

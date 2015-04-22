@@ -1,3 +1,5 @@
+/*Show place on listView*/
+
 package com.example.hello;
 
 import java.io.BufferedReader;
